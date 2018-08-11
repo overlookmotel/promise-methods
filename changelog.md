@@ -8,6 +8,6 @@
 
 * README update
 
-## Next
+## 1.1.0
 
 * `wait` method
