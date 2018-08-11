@@ -89,6 +89,13 @@ describe('series()', function() {
 			return this.p;
 		});
 	});
+
+	describe('with empty array', function() {
+		it('promise resolves to empty array', function() {
+			const p = P.series([]);
+			return expect(p).to.eventually.deep.equal([]);
+		});
+	});
 });
 
 function delay(ms) {

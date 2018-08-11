@@ -89,6 +89,13 @@ describe('mapOwnSeries()', function() {
 			return p;
 		});
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to empty object', function() {
+			const p = P.mapOwnSeries({}, () => {});
+			return expect(p).to.eventually.deep.equal({});
+		});
+	});
 });
 
 function delay(ms) {

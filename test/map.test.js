@@ -131,6 +131,13 @@ describe('map()', function() {
 			});
 		});
 	});
+
+	describe('with empty array', function() {
+		it('promise resolves to empty array', function() {
+			const p = P.map([], () => {});
+			return expect(p).to.eventually.deep.equal([]);
+		});
+	});
 });
 
 function delay(ms) {

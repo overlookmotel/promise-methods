@@ -136,6 +136,13 @@ describe('forIn()', function() {
 			});
 		});
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to undefined', function() {
+			const p = P.forIn({}, () => {});
+			return expect(p).to.eventually.equal(undefined);
+		});
+	});
 });
 
 function delay(ms) {

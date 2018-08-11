@@ -31,4 +31,11 @@ describe('all()', function() {
 		const p = P.all([Promise.resolve(123), Promise.reject(err)]);
 		return expect(p).to.be.rejectedWith(err);
 	});
+
+	describe('with empty array', function() {
+		it('promise resolves to empty array', function() {
+			const p = P.all([]);
+			return expect(p).to.eventually.deep.equal([]);
+		});
+	});
 });

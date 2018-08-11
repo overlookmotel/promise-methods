@@ -92,6 +92,13 @@ describe('forInSeries()', function() {
 			return p;
 		});
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to undefined', function() {
+			const p = P.forInSeries({}, () => {});
+			return expect(p).to.eventually.equal(undefined);
+		});
+	});
 });
 
 function delay(ms) {

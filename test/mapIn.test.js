@@ -140,6 +140,13 @@ describe('mapIn()', function() {
 			});
 		});
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to empty object', function() {
+			const p = P.mapIn({}, () => {});
+			return expect(p).to.eventually.deep.equal({});
+		});
+	});
 });
 
 function delay(ms) {

@@ -87,6 +87,13 @@ describe('forOwnSeries()', function() {
 			return p;
 		});
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to undefined', function() {
+			const p = P.forOwnSeries({}, () => {});
+			return expect(p).to.eventually.equal(undefined);
+		});
+	});
 });
 
 function delay(ms) {

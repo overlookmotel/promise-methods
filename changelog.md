@@ -14,4 +14,5 @@
 
 ## Next
 
+* Fix: Collection methods handle empty arrays/objects
 * `Queue` class drain queue after checking if done

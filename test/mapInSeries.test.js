@@ -94,6 +94,13 @@ describe('mapInSeries()', function() {
 			return p;
 		});
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to empty object', function() {
+			const p = P.mapInSeries({}, () => {});
+			return expect(p).to.eventually.deep.equal({});
+		});
+	});
 });
 
 function delay(ms) {

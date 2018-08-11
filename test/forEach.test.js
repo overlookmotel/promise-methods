@@ -127,6 +127,13 @@ describe('forEach()', function() {
 			});
 		});
 	});
+
+	describe('with empty array', function() {
+		it('promise resolves to undefined', function() {
+			const p = P.forEach([], () => {});
+			return expect(p).to.eventually.equal(undefined);
+		});
+	});
 });
 
 function delay(ms) {

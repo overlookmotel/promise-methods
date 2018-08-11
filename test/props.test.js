@@ -60,4 +60,11 @@ describe('props()', function() {
 		});
 		return expect(p).to.be.rejectedWith(err);
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to empty object', function() {
+			const p = P.props({});
+			return expect(p).to.eventually.deep.equal({});
+		});
+	});
 });

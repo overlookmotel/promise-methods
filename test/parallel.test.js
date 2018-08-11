@@ -127,6 +127,13 @@ describe('parallel()', function() {
 			});
 		});
 	});
+
+	describe('with empty array', function() {
+		it('promise resolves to empty array', function() {
+			const p = P.parallel([]);
+			return expect(p).to.eventually.deep.equal([]);
+		});
+	});
 });
 
 function delay(ms) {

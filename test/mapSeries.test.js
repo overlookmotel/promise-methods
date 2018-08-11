@@ -90,6 +90,13 @@ describe('mapSeries()', function() {
 			return p;
 		});
 	});
+
+	describe('with empty array', function() {
+		it('promise resolves to empty array', function() {
+			const p = P.mapSeries([], () => {});
+			return expect(p).to.eventually.deep.equal([]);
+		});
+	});
 });
 
 function delay(ms) {

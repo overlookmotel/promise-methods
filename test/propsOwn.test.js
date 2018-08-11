@@ -58,4 +58,11 @@ describe('propsOwn()', function() {
 		});
 		return expect(p).to.be.rejectedWith(err);
 	});
+
+	describe('with empty object', function() {
+		it('promise resolves to empty object', function() {
+			const p = P.propsOwn({});
+			return expect(p).to.eventually.deep.equal({});
+		});
+	});
 });
