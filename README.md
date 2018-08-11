@@ -42,6 +42,7 @@ The following methods are provided:
 * `mapInSeries( obj, fn )`
 * `mapOwn( obj, fn [, options] )`
 * `mapOwnSeries( obj, fn )`
+* `wait( [ms] )`
 * `defer()`
 * `finally( promise, fn )`
 * `Queue` class
@@ -238,6 +239,17 @@ const files = await P.mapIn(
 Same as `mapIn()` but only with object's *own* enumerable properties (i.e. properties on the object prototype are ignored).
 
 ### Miscellaneous
+
+#### `wait( [ms] )`
+
+Create a Promise that resolves after a specified time period.
+
+```js
+await P.wait(100);
+// Promise resolves after 100ms
+```
+
+If `ms` is not specified, promise resolves after 0 ms (using `setTimeout()`).
 
 #### `defer()`
 

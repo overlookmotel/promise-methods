@@ -7,3 +7,7 @@
 ## 1.0.1
 
 * README update
+
+## Next
+
+* `wait` method
