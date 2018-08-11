@@ -13,15 +13,17 @@
   "bugs": {
     "url": "https://github.com/overlookmotel/promise-methods/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.5",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "sinon": "^6.1.5",
+    "sinon-chai": "^3.2.0"
   },
   "keywords": [
     "promise",
