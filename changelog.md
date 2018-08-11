@@ -12,7 +12,7 @@
 
 * `wait` method
 
-## Next
+## 1.1.1
 
 * Fix: Collection methods handle empty arrays/objects
 * `Queue` class drain queue after checking if done
