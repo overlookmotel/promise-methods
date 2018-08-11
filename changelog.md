@@ -11,3 +11,7 @@
 ## 1.1.0
 
 * `wait` method
+
+## Next
+
+* `Queue` class drain queue after checking if done
