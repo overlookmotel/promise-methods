@@ -17,6 +17,6 @@
 * Fix: Collection methods handle empty arrays/objects
 * `Queue` class drain queue after checking if done
 
-## Next
+## 1.2.0
 
 * `promisify` method
