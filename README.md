@@ -23,6 +23,7 @@ Not optimized for performance at present, but well tested and it all works.
 
 The following methods are provided:
 
+* `promisify( fn )`
 * `try( fn )`
 * `method( fn )`
 * `parallel( fns [, concurrency] )`
@@ -54,6 +55,23 @@ const { promiseMap } = require('promise-methods');
 ```
 
 ### Function methods
+
+#### `promisify( fn )`
+
+Promisify a Node.js-style callback function to return promises.
+
+```js
+const P = require('promise-methods');
+const fs = require('fs');
+
+const readFileAsync = P.promisify(fs.readFile);
+
+readFileAsync('/path/to/file').then(fileContent => {
+  // `fileContent` is value callback was called with
+});
+```
+
+If the wrapped function calls callback with error or synchronously throws, the promise is rejected with the error.
 
 #### `try( fn )`
 
