@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{parallel} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -30,7 +30,7 @@ describe('parallel()', () => {
 			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 			this.spies = this.promises.map(promise => sinon.fake.returns(promise));
-			this.p = P.parallel(this.spies);
+			this.p = parallel(this.spies);
 		});
 
 		it('calls all functions sync', function() {
@@ -71,7 +71,7 @@ describe('parallel()', () => {
 			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 			this.spies = this.promises.map(promise => sinon.fake.returns(promise));
-			this.p = P.parallel(this.spies, this.concurrency);
+			this.p = parallel(this.spies, this.concurrency);
 		});
 
 		it('calls functions sync up to max concurrency', function() {
@@ -131,7 +131,7 @@ describe('parallel()', () => {
 
 	describe('with empty array', () => {
 		it('promise resolves to empty array', () => {
-			const p = P.parallel([]);
+			const p = parallel([]);
 			return expect(p).to.eventually.deep.equal([]);
 		});
 	});

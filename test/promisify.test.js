@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{promisify} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -26,7 +26,7 @@ describe('promisify()', () => {
 		this.spy = sinon.fake((a, b, cb) => {
 			cb(null, this.ret);
 		});
-		this.fn = P.promisify(this.spy);
+		this.fn = promisify(this.spy);
 	});
 
 	it('returns a function', function() {
@@ -74,7 +74,7 @@ describe('promisify()', () => {
 		describe('calls callback with error', () => {
 			it('promise rejects with error', () => {
 				const err = new Error('e');
-				const fn = P.promisify((cb) => {
+				const fn = promisify((cb) => {
 					cb(err);
 				});
 				const p = fn();
@@ -86,7 +86,7 @@ describe('promisify()', () => {
 		describe('throws error', () => {
 			it('promise rejects with error', () => {
 				const err = new Error('e');
-				const fn = P.promisify(() => {
+				const fn = promisify(() => {
 					throw err;
 				});
 				const p = fn();

@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{mapIn} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -37,7 +37,7 @@ describe('mapIn()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-			this.p = P.mapIn(this.obj, this.spy);
+			this.p = mapIn(this.obj, this.spy);
 		});
 
 		it('calls callback sync for each object property with args (value, key, obj)', function() {
@@ -88,7 +88,7 @@ describe('mapIn()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-			this.p = P.mapIn(this.obj, this.spy, {concurrency: this.concurrency});
+			this.p = mapIn(this.obj, this.spy, {concurrency: this.concurrency});
 		});
 
 		it('calls callback sync up to max concurrency with args (value, index, array)', function() {
@@ -144,7 +144,7 @@ describe('mapIn()', () => {
 
 	describe('with empty object', () => {
 		it('promise resolves to empty object', () => {
-			const p = P.mapIn({}, () => {});
+			const p = mapIn({}, () => {});
 			return expect(p).to.eventually.deep.equal({});
 		});
 	});

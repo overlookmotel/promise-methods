@@ -9,7 +9,7 @@
 const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	{expect} = chai,
-	P = require('../index');
+	{propsOwn} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -36,7 +36,7 @@ describe('propsOwn()', () => {
 			v4: Promise.resolve(rets.v4)
 		});
 
-		const p = P.propsOwn(obj);
+		const p = propsOwn(obj);
 
 		return p.then((ret) => {
 			expect(ret).to.deep.equal(rets);
@@ -49,7 +49,7 @@ describe('propsOwn()', () => {
 
 	it('rejects if a promise rejects', () => {
 		const err = new Error('e');
-		const p = P.propsOwn({
+		const p = propsOwn({
 			a: Promise.resolve(123),
 			b: Promise.reject(err)
 		});
@@ -58,7 +58,7 @@ describe('propsOwn()', () => {
 
 	describe('with empty object', () => {
 		it('promise resolves to empty object', () => {
-			const p = P.propsOwn({});
+			const p = propsOwn({});
 			return expect(p).to.eventually.deep.equal({});
 		});
 	});

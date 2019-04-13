@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{forOwn} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -37,7 +37,7 @@ describe('forOwn()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-			this.p = P.forOwn(this.obj, this.spy);
+			this.p = forOwn(this.obj, this.spy);
 		});
 
 		it('calls callback sync for each object property with args (value, key, obj)', function() {
@@ -86,7 +86,7 @@ describe('forOwn()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-			this.p = P.forOwn(this.obj, this.spy, {concurrency: this.concurrency});
+			this.p = forOwn(this.obj, this.spy, {concurrency: this.concurrency});
 		});
 
 		it('calls callback sync up to max concurrency with args (value, index, array)', function() {
@@ -135,7 +135,7 @@ describe('forOwn()', () => {
 
 	describe('with empty object', () => {
 		it('promise resolves to undefined', () => {
-			const p = P.forOwn({}, () => {});
+			const p = forOwn({}, () => {});
 			return expect(p).to.eventually.equal(undefined);
 		});
 	});

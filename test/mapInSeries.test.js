@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{mapInSeries} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -36,7 +36,7 @@ describe('mapInSeries()', () => {
 		this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 		this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-		this.p = P.mapInSeries(this.obj, this.spy);
+		this.p = mapInSeries(this.obj, this.spy);
 	});
 
 	it('calls callback sync once with args (value, index, array)', function() {
@@ -97,7 +97,7 @@ describe('mapInSeries()', () => {
 
 	describe('with empty object', () => {
 		it('promise resolves to empty object', () => {
-			const p = P.mapInSeries({}, () => {});
+			const p = mapInSeries({}, () => {});
 			return expect(p).to.eventually.deep.equal({});
 		});
 	});

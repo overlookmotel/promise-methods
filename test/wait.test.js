@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{wait} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -22,13 +22,13 @@ chai.use(sinonChai);
 
 describe('wait()', () => {
 	it('returns a promise', () => {
-		const p = P.wait();
+		const p = wait();
 		expect(p).to.be.instanceof(Promise);
 		return p;
 	});
 
 	it('promise resolves after specifed ms', () => {
-		const p = P.wait(100);
+		const p = wait(100);
 		const thenSpy = sinon.fake();
 		const p2 = p.then(thenSpy);
 
@@ -44,7 +44,7 @@ describe('wait()', () => {
 	});
 
 	it('if wait undefined, promise resolves after 0 ms', () => {
-		const p = P.wait();
+		const p = wait();
 		const thenSpy = sinon.fake();
 		const p2 = p.then(thenSpy);
 

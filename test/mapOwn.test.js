@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{mapOwn} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -37,7 +37,7 @@ describe('mapOwn()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-			this.p = P.mapOwn(this.obj, this.spy);
+			this.p = mapOwn(this.obj, this.spy);
 		});
 
 		it('calls callback sync for each object property with args (value, key, obj)', function() {
@@ -88,7 +88,7 @@ describe('mapOwn()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-			this.p = P.mapOwn(this.obj, this.spy, {concurrency: this.concurrency});
+			this.p = mapOwn(this.obj, this.spy, {concurrency: this.concurrency});
 		});
 
 		it('calls callback sync up to max concurrency with args (value, index, array)', function() {
@@ -139,7 +139,7 @@ describe('mapOwn()', () => {
 
 	describe('with empty object', () => {
 		it('promise resolves to empty object', () => {
-			const p = P.mapOwn({}, () => {});
+			const p = mapOwn({}, () => {});
 			return expect(p).to.eventually.deep.equal({});
 		});
 	});

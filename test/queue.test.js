@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{Queue} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -23,7 +23,7 @@ chai.use(sinonChai);
 describe('Queue class', () => {
 	describe('with default concurrency', () => {
 		beforeEach(function() {
-			this.queue = new P.Queue();
+			this.queue = new Queue();
 
 			this.rets = [1, 2, 3, 4, 5].map(num => ({a: num}));
 			this.resolves = [];
@@ -69,7 +69,7 @@ describe('Queue class', () => {
 		beforeEach(function() {
 			this.concurrency = 2;
 
-			this.queue = new P.Queue({concurrency: this.concurrency});
+			this.queue = new Queue({concurrency: this.concurrency});
 
 			this.rets = [1, 2, 3, 4, 5].map(num => ({a: num}));
 			this.resolves = [];

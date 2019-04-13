@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{series} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -29,7 +29,7 @@ describe('series()', () => {
 		);
 		this.resolve = () => this.resolves.forEach(resolve => resolve());
 		this.spies = this.promises.map(promise => sinon.fake.returns(promise));
-		this.p = P.series(this.spies);
+		this.p = series(this.spies);
 	});
 
 	it('calls 1st function sync', function() {
@@ -92,7 +92,7 @@ describe('series()', () => {
 
 	describe('with empty array', () => {
 		it('promise resolves to empty array', () => {
-			const p = P.series([]);
+			const p = series([]);
 			return expect(p).to.eventually.deep.equal([]);
 		});
 	});

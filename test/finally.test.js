@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{promiseFinally} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -26,7 +26,7 @@ describe('finally()', () => {
 			this.ret = {a: 1};
 			this.p = Promise.resolve(this.ret);
 			this.spy = sinon.fake.returns(456);
-			this.p2 = P.finally(this.p, this.spy);
+			this.p2 = promiseFinally(this.p, this.spy);
 		});
 
 		it('calls callback', function() {
@@ -59,7 +59,7 @@ describe('finally()', () => {
 			const p = Promise.resolve(this.ret);
 			const err = new Error('e');
 			const spy = sinon.fake.throws(err);
-			const p2 = P.finally(p, spy);
+			const p2 = promiseFinally(p, spy);
 			return expect(p2).to.be.rejectedWith(err);
 		});
 
@@ -67,7 +67,7 @@ describe('finally()', () => {
 			const p = Promise.resolve(this.ret);
 			const err = new Error('e');
 			const spy = sinon.fake.rejects(err);
-			const p2 = P.finally(p, spy);
+			const p2 = promiseFinally(p, spy);
 			return expect(p2).to.be.rejectedWith(err);
 		});
 	});
@@ -77,7 +77,7 @@ describe('finally()', () => {
 			this.err = new Error('e');
 			this.p = Promise.reject(this.err);
 			this.spy = sinon.fake.returns(456);
-			this.p2 = P.finally(this.p, this.spy);
+			this.p2 = promiseFinally(this.p, this.spy);
 		});
 
 		it('calls callback', function() {
@@ -112,7 +112,7 @@ describe('finally()', () => {
 			const p = Promise.reject(this.err);
 			const err = new Error('e');
 			const spy = sinon.fake.throws(err);
-			const p2 = P.finally(p, spy);
+			const p2 = promiseFinally(p, spy);
 			return expect(p2).to.be.rejectedWith(err);
 		});
 
@@ -122,7 +122,7 @@ describe('finally()', () => {
 			const p = Promise.resolve(this.ret);
 			const err = new Error('e');
 			const spy = sinon.fake.rejects(err);
-			const p2 = P.finally(p, spy);
+			const p2 = promiseFinally(p, spy);
 			return expect(p2).to.be.rejectedWith(err);
 		});
 	});

@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{forEach} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -33,7 +33,7 @@ describe('forEach()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, i) => this.promises[i]);
-			this.p = P.forEach(this.arr, this.spy);
+			this.p = forEach(this.arr, this.spy);
 		});
 
 		it('calls callback sync for each array item with args (value, index, array)', function() {
@@ -77,7 +77,7 @@ describe('forEach()', () => {
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, i) => this.promises[i]);
-			this.p = P.forEach(this.arr, this.spy, {concurrency: this.concurrency});
+			this.p = forEach(this.arr, this.spy, {concurrency: this.concurrency});
 		});
 
 		it('calls callback sync up to max concurrency with args (value, index, array)', function() {
@@ -131,7 +131,7 @@ describe('forEach()', () => {
 
 	describe('with empty array', () => {
 		it('promise resolves to undefined', () => {
-			const p = P.forEach([], () => {});
+			const p = forEach([], () => {});
 			return expect(p).to.eventually.equal(undefined);
 		});
 	});

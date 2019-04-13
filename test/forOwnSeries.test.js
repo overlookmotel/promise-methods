@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{forOwnSeries} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -36,7 +36,7 @@ describe('forOwnSeries()', () => {
 		this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 		this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
-		this.p = P.forOwnSeries(this.obj, this.spy);
+		this.p = forOwnSeries(this.obj, this.spy);
 	});
 
 	it('calls callback sync once with args (value, index, array)', function() {
@@ -89,7 +89,7 @@ describe('forOwnSeries()', () => {
 
 	describe('with empty object', () => {
 		it('promise resolves to undefined', () => {
-			const p = P.forOwnSeries({}, () => {});
+			const p = forOwnSeries({}, () => {});
 			return expect(p).to.eventually.equal(undefined);
 		});
 	});

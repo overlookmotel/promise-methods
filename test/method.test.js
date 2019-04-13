@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{method} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -22,7 +22,7 @@ chai.use(sinonChai);
 
 describe('method()', () => {
 	it('returns a function', () => {
-		const fn = P.method(() => {});
+		const fn = method(() => {});
 		expect(fn).to.be.a('function');
 	});
 
@@ -31,7 +31,7 @@ describe('method()', () => {
 			beforeEach(function() {
 				this.ret = {a: 1};
 				this.spy = sinon.fake.returns(this.ret);
-				this.fn = P.method(this.spy);
+				this.fn = method(this.spy);
 			});
 
 			it('once', function() {
@@ -59,7 +59,7 @@ describe('method()', () => {
 		describe('when original returns plain value', () => {
 			beforeEach(function() {
 				this.ret = {a: 1};
-				this.fn = P.method(() => this.ret);
+				this.fn = method(() => this.ret);
 				this.p = this.fn();
 			});
 
@@ -77,7 +77,7 @@ describe('method()', () => {
 			beforeEach(function() {
 				this.ret = {a: 1};
 				this.promise = Promise.resolve(this.ret);
-				this.fn = P.method(() => this.promise);
+				this.fn = method(() => this.promise);
 				this.p = this.fn();
 			});
 
@@ -95,7 +95,7 @@ describe('method()', () => {
 		describe('when original throws', () => {
 			beforeEach(function() {
 				this.err = new Error('e');
-				this.fn = P.method(() => { throw this.err; });
+				this.fn = method(() => { throw this.err; });
 				this.p = this.fn();
 			});
 

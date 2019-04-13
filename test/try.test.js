@@ -11,7 +11,7 @@ const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	sinonChai = require('sinon-chai'),
 	{expect} = chai,
-	P = require('../index');
+	{promiseTry} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -25,7 +25,7 @@ describe('try()', () => {
 		beforeEach(function() {
 			this.ret = {a: 1};
 			this.spy = sinon.fake.returns(this.ret);
-			this.p = P.try(this.spy);
+			this.p = promiseTry(this.spy);
 		});
 
 		it('once', function() {
@@ -47,7 +47,7 @@ describe('try()', () => {
 	describe('when function returns plain value', () => {
 		beforeEach(function() {
 			this.ret = {a: 1};
-			this.p = P.try(() => this.ret);
+			this.p = promiseTry(() => this.ret);
 		});
 
 		it('returns a promise', function() {
@@ -64,7 +64,7 @@ describe('try()', () => {
 		beforeEach(function() {
 			this.ret = {a: 1};
 			this.promise = Promise.resolve(this.ret);
-			this.p = P.try(() => this.promise);
+			this.p = promiseTry(() => this.promise);
 		});
 
 		it('returns a promise', function() {
@@ -81,7 +81,7 @@ describe('try()', () => {
 	describe('when function throws', () => {
 		beforeEach(function() {
 			this.err = new Error('e');
-			this.p = P.try(() => { throw this.err; });
+			this.p = promiseTry(() => { throw this.err; });
 		});
 
 		it('returns a promise', function() {

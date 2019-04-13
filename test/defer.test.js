@@ -9,7 +9,7 @@
 const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	{expect} = chai,
-	P = require('../index');
+	{defer} = require('../index');
 
 // Init
 chai.config.includeStack = true;
@@ -19,7 +19,7 @@ chai.use(chaiAsPromised);
 
 describe('defer()', () => {
 	beforeEach(function() {
-		this.d = P.defer();
+		this.d = defer();
 	});
 
 	describe('returns an object', () => {
