@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('series()', function() {
 	beforeEach(function() {
 		this.rets = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}];

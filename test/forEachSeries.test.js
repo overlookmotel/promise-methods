@@ -20,19 +20,16 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('forEachSeries()', function() {
 	beforeEach(function() {
 		this.arr = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}];
 
 		this.promises = [];
 		this.resolves = [];
-		this.arr.forEach((v, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve)); // jshint ignore:line
+		this.arr.forEach((v, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve));
 		this.resolve = () => this.resolves.forEach(resolve => resolve());
 
-		this.spy = sinon.fake((v, i) => this.promises[i]); // jshint ignore:line
+		this.spy = sinon.fake((v, i) => this.promises[i]);
 		this.p = P.forEachSeries(this.arr, this.spy);
 	});
 

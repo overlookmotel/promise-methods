@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('mapOwn()', function() {
 	describe('with default concurrency', function() {
 		beforeEach(function() {
@@ -37,7 +34,7 @@ describe('mapOwn()', function() {
 			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
-			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]); // jshint ignore:line
+			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
 			this.p = P.mapOwn(this.obj, this.spy);
 		});
 
@@ -86,7 +83,7 @@ describe('mapOwn()', function() {
 			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
-			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]); // jshint ignore:line
+			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
 			this.p = P.mapOwn(this.obj, this.spy, {concurrency: this.concurrency});
 		});
 
@@ -164,7 +161,7 @@ function expectCalls(spy, obj, count) {
 
 function expectResults(ret, keys, rets) {
 	expect(ret).to.be.an('object');
-	expect(ret.__proto__).to.equal(Object.prototype); // jshint ignore:line
+	expect(ret.__proto__).to.equal(Object.prototype);
 	expect(Object.keys(ret)).to.have.length(keys.length);
 
 	for (let i = 0; i < rets.length; i++) {

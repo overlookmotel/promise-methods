@@ -17,9 +17,6 @@ chai.use(chaiAsPromised);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it */
-
 describe('props()', function() {
 	it('resolves all promises', function() {
 		const rets = {

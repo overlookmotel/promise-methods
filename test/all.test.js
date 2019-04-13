@@ -17,9 +17,6 @@ chai.use(chaiAsPromised);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it */
-
 describe('all()', function() {
 	it('resolves all promises', function() {
 		const p = P.all([Promise.resolve(123), Promise.resolve(456)]);

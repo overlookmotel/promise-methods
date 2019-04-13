@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('Queue class', function() {
 	describe('with default concurrency', function() {
 		beforeEach(function() {

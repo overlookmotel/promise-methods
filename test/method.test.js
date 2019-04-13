@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('method()', function() {
 	it('returns a function', function() {
 		const fn = P.method(() => {});

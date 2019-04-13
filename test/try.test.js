@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('try()', function() {
 	describe('calls function', function() {
 		beforeEach(function() {

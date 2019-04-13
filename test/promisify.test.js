@@ -20,13 +20,10 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('promisify()', function() {
 	beforeEach(function() {
 		this.ret = {a: 1};
-		this.spy = sinon.fake((a, b, cb) => { // jshint ignore:line
+		this.spy = sinon.fake((a, b, cb) => {
 			cb(null, this.ret);
 		});
 		this.fn = P.promisify(this.spy);

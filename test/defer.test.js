@@ -17,9 +17,6 @@ chai.use(chaiAsPromised);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('defer()', function() {
 	beforeEach(function() {
 		this.d = P.defer();

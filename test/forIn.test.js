@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('forIn()', function() {
 	describe('with default concurrency', function() {
 		beforeEach(function() {
@@ -34,10 +31,10 @@ describe('forIn()', function() {
 			this.keys = allKeys(this.obj);
 			this.promises = [];
 			this.resolves = [];
-			this.keys.forEach((k, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve)); // jshint ignore:line
+			this.keys.forEach((k, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve));
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
-			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]); // jshint ignore:line
+			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
 			this.p = P.forIn(this.obj, this.spy);
 		});
 
@@ -81,10 +78,10 @@ describe('forIn()', function() {
 			this.keys = allKeys(this.obj);
 			this.promises = [];
 			this.resolves = [];
-			this.keys.forEach((k, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve)); // jshint ignore:line
+			this.keys.forEach((k, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve));
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
-			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]); // jshint ignore:line
+			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
 			this.p = P.forIn(this.obj, this.spy, {concurrency: this.concurrency});
 		});
 

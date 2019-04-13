@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it */
-
 describe('wait()', function() {
 	it('returns a promise', function() {
 		const p = P.wait();

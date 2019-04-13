@@ -20,9 +20,6 @@ chai.use(sinonChai);
 
 // Tests
 
-/* jshint expr: true */
-/* global describe, it, beforeEach */
-
 describe('map()', function() {
 	describe('with default concurrency', function() {
 		beforeEach(function() {
@@ -33,7 +30,7 @@ describe('map()', function() {
 			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
-			this.spy = sinon.fake((v, i) => this.promises[i]); // jshint ignore:line
+			this.spy = sinon.fake((v, i) => this.promises[i]);
 			this.p = P.map(this.arr, this.spy);
 		});
 
@@ -77,7 +74,7 @@ describe('map()', function() {
 			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
-			this.spy = sinon.fake((v, i) => this.promises[i]); // jshint ignore:line
+			this.spy = sinon.fake((v, i) => this.promises[i]);
 			this.p = P.map(this.arr, this.spy, {concurrency: this.concurrency});
 		});
 
