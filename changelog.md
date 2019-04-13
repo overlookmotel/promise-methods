@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.3.0
+
+Features:
+
+* Drop support for Node 6
+
+Refactor:
+
+* Fix ESLint errors
+
+Dev:
+
+* Reformat changelog
+* CI run tests on Node v11
+* Rename `travis` npm script to `ci`
+* git ignore `package-lock.json`
+* Use ESLint instead of JSHint
+* Update dev dependencies
+
 ## 1.2.0
 
 Features:
