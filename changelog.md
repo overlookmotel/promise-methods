@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.4.0
+
+Features:
+
+* `is` method
+* `allAwait` method
+* `await` option for `all`, `props`, `propsOwn`
+* `settle` method
+
+Refactor:
+
+* Move entry point to `index.js`
+
+Tests:
+
+* Import only method under test
+
+Docs:
+
+* README typo
+
 ## 1.3.0
 
 Features:
