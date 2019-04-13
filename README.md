@@ -23,6 +23,7 @@ Not optimized for performance at present, but well tested and it all works.
 
 The following methods are provided:
 
+* `is( obj )`
 * `promisify( fn )`
 * `try( fn )`
 * `method( fn )`
@@ -52,6 +53,24 @@ All methods are also provided with longer names suitable for destructuring e.g. 
 
 ```js
 const { promiseMap } = require('promise-methods');
+```
+
+### Static methods
+
+#### `is( obj )` / `isPromise( obj )`
+
+Check if input is a promise (aka thenable).
+
+Returns `true` if input has a `.then()` method, `false` if not.
+
+```js
+const P = require('promise-methods');
+
+P.isPromise( new Promise( () => {} ) ); // Returns `true`
+P.isPromise( { then: () => {} } ); // Returns `true`
+P.isPromise( {} ); // Returns `false`
+P.isPromise( () => {} ); // Returns `false`
+P.isPromise( 123 ); // Returns `false`
 ```
 
 ### Function methods
