@@ -6,6 +6,7 @@ script:
 node_js:
   - "8"
   - "10"
+  - "11"
 
 branches:
   except:
