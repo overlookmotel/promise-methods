@@ -29,10 +29,10 @@ The following methods are provided:
 * `method( fn )`
 * `parallel( fns [, concurrency] )`
 * `series( fns )`
-* `all( arr )`
-* `props( obj )`
-* `propsOwn( obj )`
+* `all( arr [,options] )`
 * `allAwait( arr )`
+* `props( obj [,options] )`
+* `propsOwn( obj [,options] )`
 * `forEach( arr, fn [, options] )`
 * `forEachSeries( arr, fn )`
 * `map( arr, fn [, options] )`
@@ -167,19 +167,32 @@ const res = await P.series( [
 
 ### Collection methods
 
-#### `all( arr )`
+#### `all( promises [, options] )`
 
-Identical to native `Promise.all( arr )`.
+Identical to native `Promise.all( promises )`, except adds `await` option.
 
-#### `allAwait( arr )`
+If `options.await` is `true` and a promise rejects, all it waits for all other promises to settle (resolve or reject) before rejecting.
 
-Like `Promise.all()`, but if a promise rejects, all it waits for all other promises to settle (resolve or reject) before rejecting.
+If no promise rejects, resolves to array of resolution values of the input promises (just like `Promise.all()`). If any input promise rejects, rejects with rejection reason of the *first* promise to reject.
 
-If no promise rejects, resolves to array of resolution values of the input promises.
+```js
+const promise1 = Promise.reject( new Error('Oops!') );
+const promise2 = new Promise(
+  resolve => setTimeout( () => console.log('Resolved!'), 1000 )
+);
 
-If any input promise rejects, rejects with rejection reason of the first promise to reject.
+await P.all( [ promise1, promise2 ]);
+// 'Resolved!' not logged yet
 
-#### `props( obj )`
+await P.all( [ promise1, promise2 ], { await: true } );
+// 'Resolved!' logged before promise rejects
+```
+
+#### `allAwait( promises )`
+
+Shortcut for `all( promises, { await: true } )`.
+
+#### `props( obj [, options] )`
 
 Like `Promise.all()` for objects.
 
@@ -196,7 +209,9 @@ const files = await P.props( {
 // files = { f1: 'file contents 1', f2: 'file contents 2', f3: 'file contents 3' }
 ```
 
-#### `propsOwn( obj )`
+`await` option can be provided (see `all()` above).
+
+#### `propsOwn( obj [, options] )`
 
 Same as `props()` but only with object's *own* enumerable properties (i.e. properties on the object prototype are ignored).
 
