@@ -9,7 +9,7 @@
 const chai = require('chai'),
 	chaiAsPromised = require('chai-as-promised'),
 	{expect} = chai,
-	P = require('../lib/');
+	P = require('../index');
 
 // Init
 chai.config.includeStack = true;
