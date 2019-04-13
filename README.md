@@ -32,6 +32,7 @@ The following methods are provided:
 * `all( arr )`
 * `props( obj )`
 * `propsOwn( obj )`
+* `allAwait( arr )`
 * `forEach( arr, fn [, options] )`
 * `forEachSeries( arr, fn )`
 * `map( arr, fn [, options] )`
@@ -169,6 +170,14 @@ const res = await P.series( [
 #### `all( arr )`
 
 Identical to native `Promise.all( arr )`.
+
+#### `allAwait( arr )`
+
+Like `Promise.all()`, but if a promise rejects, all it waits for all other promises to settle (resolve or reject) before rejecting.
+
+If no promise rejects, resolves to array of resolution values of the input promises.
+
+If any input promise rejects, rejects with rejection reason of the first promise to reject.
 
 #### `props( obj )`
 
