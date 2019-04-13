@@ -161,9 +161,9 @@ For an object whose values are promises, resolves the promises and returns a new
 const fs = require('fs-extra');
 
 const files = await P.props( {
-  f1: fs.read('/1.txt'),
-  f2: fs.read('/2.txt'),
-  f3: fs.read('/3.txt')
+  f1: fs.readFile('/1.txt'),
+  f2: fs.readFile('/2.txt'),
+  f3: fs.readFile('/3.txt')
 } );
 // files = { f1: 'file contents 1', f2: 'file contents 2', f3: 'file contents 3' }
 ```
