@@ -1,22 +1,31 @@
 # Changelog
 
-## 1.0.0
+## 1.2.0
 
-* Initial release
+Features:
+
+* `promisify` method
+
+## 1.1.1
+
+Bug fixes:
+
+* Collection methods handle empty arrays/objects
+
+Refactor:
+
+* `Queue` class drain queue after checking if done
+
+## 1.1.0
+
+Features:
+
+* `wait` method
 
 ## 1.0.1
 
 * README update
 
-## 1.1.0
+## 1.0.0
 
-* `wait` method
-
-## 1.1.1
-
-* Fix: Collection methods handle empty arrays/objects
-* `Queue` class drain queue after checking if done
-
-## 1.2.0
-
-* `promisify` method
+* Initial release
