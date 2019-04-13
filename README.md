@@ -37,6 +37,7 @@ The following methods are provided:
 * `forEachSeries( arr, fn )`
 * `map( arr, fn [, options] )`
 * `mapSeries( arr, fn )`
+* `settle( arr )`
 * `forIn( obj, fn [, options] )`
 * `forInSeries( obj, fn )`
 * `forOwn( obj, fn [, options] )`
@@ -251,6 +252,26 @@ const files = await P.map(
   filename => fs.readFile(`/src/${filename}`, 'utf8')
 );
 // files = [ 'file contents 1', 'file contents 2', 'file contents 3' ]
+```
+
+#### `settle( arr )`
+
+Awaits all promises in array to settle (resolve or reject) and returns an array of the results.
+
+Each result is of form `{ resolved: <boolean>, result: <any> }`.
+
+Never rejects, even if one of the promises in array rejects.
+
+```js
+const results = await P.settle( [
+  Promise.resolve(123),
+  Promise.reject( new Error('Oops!') )
+] );
+
+// results = [
+//   { resolved: true, result: 123 },
+//   { resolved: false, result: Error<'Oops!'> }
+// ]
 ```
 
 ### Object iteration methods
