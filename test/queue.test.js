@@ -20,14 +20,16 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('Queue class', function() {
-	describe('with default concurrency', function() {
+describe('Queue class', () => {
+	describe('with default concurrency', () => {
 		beforeEach(function() {
 			this.queue = new P.Queue();
 
 			this.rets = [1, 2, 3, 4, 5].map(num => ({a: num}));
 			this.resolves = [];
-			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+			this.promises = this.rets.map(
+				(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spies = this.promises.map(promise => sinon.fake.returns(promise));
@@ -36,7 +38,7 @@ describe('Queue class', function() {
 		it('executes all functions sync as they are added', function() {
 			const {queue} = this;
 
-			for (let spy of this.spies) {
+			for (const spy of this.spies) {
 				queue.add(spy);
 				expect(spy).to.be.calledOnce;
 			}
@@ -51,7 +53,7 @@ describe('Queue class', function() {
 			const thenSpy = sinon.fake();
 			p.then(thenSpy);
 
-			for (let spy of this.spies) {
+			for (const spy of this.spies) {
 				queue.add(spy);
 			}
 
@@ -63,7 +65,7 @@ describe('Queue class', function() {
 		});
 	});
 
-	describe('with set concurrency', function() {
+	describe('with set concurrency', () => {
 		beforeEach(function() {
 			this.concurrency = 2;
 
@@ -71,7 +73,9 @@ describe('Queue class', function() {
 
 			this.rets = [1, 2, 3, 4, 5].map(num => ({a: num}));
 			this.resolves = [];
-			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+			this.promises = this.rets.map(
+				(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spies = this.promises.map(promise => sinon.fake.returns(promise));
@@ -93,7 +97,7 @@ describe('Queue class', function() {
 		it('executes functions async after max concurrency', function() {
 			const {queue, spies, concurrency} = this;
 
-			for (let spy of spies) {
+			for (const spy of spies) {
 				queue.add(spy);
 			}
 
@@ -126,7 +130,7 @@ describe('Queue class', function() {
 			const thenSpy = sinon.fake();
 			p.then(thenSpy);
 
-			for (let spy of this.spies) {
+			for (const spy of this.spies) {
 				queue.add(spy);
 			}
 

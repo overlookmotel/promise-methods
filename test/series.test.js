@@ -20,11 +20,13 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('series()', function() {
+describe('series()', () => {
 	beforeEach(function() {
 		this.rets = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}];
 		this.resolves = [];
-		this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+		this.promises = this.rets.map(
+			(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+		);
 		this.resolve = () => this.resolves.forEach(resolve => resolve());
 		this.spies = this.promises.map(promise => sinon.fake.returns(promise));
 		this.p = P.series(this.spies);
@@ -63,12 +65,13 @@ describe('series()', function() {
 
 			this.resolves[3]();
 			return delay();
-		}).then(() => {
-			expect(spies[4]).to.be.calledOnce;
+		})
+			.then(() => {
+				expect(spies[4]).to.be.calledOnce;
 
-			this.resolve();
-			return p;
-		});
+				this.resolve();
+				return p;
+			});
 	});
 
 	it('returns array of returned values', function() {
@@ -87,8 +90,8 @@ describe('series()', function() {
 		});
 	});
 
-	describe('with empty array', function() {
-		it('promise resolves to empty array', function() {
+	describe('with empty array', () => {
+		it('promise resolves to empty array', () => {
 			const p = P.series([]);
 			return expect(p).to.eventually.deep.equal([]);
 		});

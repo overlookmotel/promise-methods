@@ -20,8 +20,8 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('mapOwn()', function() {
-	describe('with default concurrency', function() {
+describe('mapOwn()', () => {
+	describe('with default concurrency', () => {
 		beforeEach(function() {
 			class C {}
 			C.prototype.v5 = {a: 5};
@@ -31,7 +31,9 @@ describe('mapOwn()', function() {
 			this.keys = Object.keys(this.obj);
 			this.rets = this.keys.map(k => ({b: this.obj[k].a + 10}));
 			this.resolves = [];
-			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+			this.promises = this.rets.map(
+				(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
@@ -50,7 +52,7 @@ describe('mapOwn()', function() {
 
 		it('promise resolves to iterator results', function() {
 			this.resolve();
-			return this.p.then(ret => {
+			return this.p.then((ret) => {
 				expectResults(ret, this.keys, this.rets);
 			});
 		});
@@ -68,7 +70,7 @@ describe('mapOwn()', function() {
 		});
 	});
 
-	describe('with set concurrency', function() {
+	describe('with set concurrency', () => {
 		beforeEach(function() {
 			class C {}
 			C.prototype.v5 = {a: 5};
@@ -80,7 +82,9 @@ describe('mapOwn()', function() {
 			this.keys = Object.keys(this.obj);
 			this.rets = this.keys.map(k => ({b: this.obj[k].a + 10}));
 			this.resolves = [];
-			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+			this.promises = this.rets.map(
+				(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
@@ -115,7 +119,7 @@ describe('mapOwn()', function() {
 
 		it('promise resolves to iterator results', function() {
 			this.resolve();
-			return this.p.then(ret => {
+			return this.p.then((ret) => {
 				expectResults(ret, this.keys, this.rets);
 			});
 		});
@@ -133,8 +137,8 @@ describe('mapOwn()', function() {
 		});
 	});
 
-	describe('with empty object', function() {
-		it('promise resolves to empty object', function() {
+	describe('with empty object', () => {
+		it('promise resolves to empty object', () => {
 			const p = P.mapOwn({}, () => {});
 			return expect(p).to.eventually.deep.equal({});
 		});
@@ -151,7 +155,7 @@ function expectCalls(spy, obj, count) {
 	const keys = Object.keys(obj);
 
 	for (let i = 0; i < count; i++) {
-		const args = spy.getCall(i).args;
+		const {args} = spy.getCall(i);
 		expect(args.length).to.equal(3);
 		expect(args[0]).to.equal(obj[keys[i]]);
 		expect(args[1]).to.equal(keys[i]);
@@ -161,7 +165,7 @@ function expectCalls(spy, obj, count) {
 
 function expectResults(ret, keys, rets) {
 	expect(ret).to.be.an('object');
-	expect(ret.__proto__).to.equal(Object.prototype);
+	expect(ret.__proto__).to.equal(Object.prototype); // eslint-disable-line no-proto
 	expect(Object.keys(ret)).to.have.length(keys.length);
 
 	for (let i = 0; i < rets.length; i++) {

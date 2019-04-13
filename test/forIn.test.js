@@ -20,8 +20,8 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('forIn()', function() {
-	describe('with default concurrency', function() {
+describe('forIn()', () => {
+	describe('with default concurrency', () => {
 		beforeEach(function() {
 			class C {}
 			C.prototype.v5 = {a: 5};
@@ -31,7 +31,9 @@ describe('forIn()', function() {
 			this.keys = allKeys(this.obj);
 			this.promises = [];
 			this.resolves = [];
-			this.keys.forEach((k, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve));
+			this.keys.forEach((k, i) => {
+				this.promises[i] = new Promise((resolve) => { this.resolves[i] = resolve; });
+			});
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
@@ -66,7 +68,7 @@ describe('forIn()', function() {
 		});
 	});
 
-	describe('with set concurrency', function() {
+	describe('with set concurrency', () => {
 		beforeEach(function() {
 			class C {}
 			C.prototype.v5 = {a: 5};
@@ -78,7 +80,9 @@ describe('forIn()', function() {
 			this.keys = allKeys(this.obj);
 			this.promises = [];
 			this.resolves = [];
-			this.keys.forEach((k, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve));
+			this.keys.forEach((k, i) => {
+				this.promises[i] = new Promise((resolve) => { this.resolves[i] = resolve; });
+			});
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 			this.spy = sinon.fake((v, k) => this.promises[this.keys.indexOf(k)]);
@@ -134,8 +138,8 @@ describe('forIn()', function() {
 		});
 	});
 
-	describe('with empty object', function() {
-		it('promise resolves to undefined', function() {
+	describe('with empty object', () => {
+		it('promise resolves to undefined', () => {
 			const p = P.forIn({}, () => {});
 			return expect(p).to.eventually.equal(undefined);
 		});
@@ -152,7 +156,7 @@ function expectCalls(spy, obj, count) {
 	const keys = allKeys(obj);
 
 	for (let i = 0; i < count; i++) {
-		const args = spy.getCall(i).args;
+		const {args} = spy.getCall(i);
 		expect(args.length).to.equal(3);
 		expect(args[0]).to.equal(obj[keys[i]]);
 		expect(args[1]).to.equal(keys[i]);
@@ -162,7 +166,7 @@ function expectCalls(spy, obj, count) {
 
 function allKeys(obj) {
 	const keys = [];
-	for (let key in obj) {
+	for (const key in obj) {
 		keys.push(key);
 	}
 	return keys;

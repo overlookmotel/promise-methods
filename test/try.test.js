@@ -20,8 +20,8 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('try()', function() {
-	describe('calls function', function() {
+describe('try()', () => {
+	describe('calls function', () => {
 		beforeEach(function() {
 			this.ret = {a: 1};
 			this.spy = sinon.fake.returns(this.ret);
@@ -44,7 +44,7 @@ describe('try()', function() {
 		});
 	});
 
-	describe('when function returns plain value', function() {
+	describe('when function returns plain value', () => {
 		beforeEach(function() {
 			this.ret = {a: 1};
 			this.p = P.try(() => this.ret);
@@ -60,7 +60,7 @@ describe('try()', function() {
 		});
 	});
 
-	describe('when function returns promise', function() {
+	describe('when function returns promise', () => {
 		beforeEach(function() {
 			this.ret = {a: 1};
 			this.promise = Promise.resolve(this.ret);
@@ -78,10 +78,10 @@ describe('try()', function() {
 		});
 	});
 
-	describe('when function throws', function() {
+	describe('when function throws', () => {
 		beforeEach(function() {
 			this.err = new Error('e');
-			this.p = P.try(() => {throw this.err;});
+			this.p = P.try(() => { throw this.err; });
 		});
 
 		it('returns a promise', function() {

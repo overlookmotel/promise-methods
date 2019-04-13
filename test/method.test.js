@@ -20,14 +20,14 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('method()', function() {
-	it('returns a function', function() {
+describe('method()', () => {
+	it('returns a function', () => {
 		const fn = P.method(() => {});
 		expect(fn).to.be.a('function');
 	});
 
-	describe('returned function', function() {
-		describe('calls original', function() {
+	describe('returned function', () => {
+		describe('calls original', () => {
 			beforeEach(function() {
 				this.ret = {a: 1};
 				this.spy = sinon.fake.returns(this.ret);
@@ -41,7 +41,8 @@ describe('method()', function() {
 			});
 
 			it('with arguments', function() {
-				const arg1 = {b: 2}, arg2 = {c: 3};
+				const arg1 = {b: 2},
+					arg2 = {c: 3};
 				const p = this.fn(arg1, arg2);
 				expect(this.spy).to.be.calledWithExactly(arg1, arg2);
 				return p;
@@ -55,7 +56,7 @@ describe('method()', function() {
 			});
 		});
 
-		describe('when original returns plain value', function() {
+		describe('when original returns plain value', () => {
 			beforeEach(function() {
 				this.ret = {a: 1};
 				this.fn = P.method(() => this.ret);
@@ -72,7 +73,7 @@ describe('method()', function() {
 			});
 		});
 
-		describe('when original returns promise', function() {
+		describe('when original returns promise', () => {
 			beforeEach(function() {
 				this.ret = {a: 1};
 				this.promise = Promise.resolve(this.ret);
@@ -91,10 +92,10 @@ describe('method()', function() {
 			});
 		});
 
-		describe('when original throws', function() {
+		describe('when original throws', () => {
 			beforeEach(function() {
 				this.err = new Error('e');
-				this.fn = P.method(() => {throw this.err;});
+				this.fn = P.method(() => { throw this.err; });
 				this.p = this.fn();
 			});
 

@@ -17,12 +17,12 @@ chai.use(chaiAsPromised);
 
 // Tests
 
-describe('defer()', function() {
+describe('defer()', () => {
 	beforeEach(function() {
 		this.d = P.defer();
 	});
 
-	describe('returns an object', function() {
+	describe('returns an object', () => {
 		it('with promise property', function() {
 			expect(this.d.promise).to.be.instanceof(Promise);
 		});
@@ -36,7 +36,7 @@ describe('defer()', function() {
 		});
 	});
 
-	describe('calling resolve/reject fulfills promise', function() {
+	describe('calling resolve/reject fulfills promise', () => {
 		it('resolve', function() {
 			const {d} = this;
 			const res = {a: 1};

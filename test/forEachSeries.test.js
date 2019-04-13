@@ -20,13 +20,15 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('forEachSeries()', function() {
+describe('forEachSeries()', () => {
 	beforeEach(function() {
 		this.arr = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}];
 
 		this.promises = [];
 		this.resolves = [];
-		this.arr.forEach((v, i) => this.promises[i] = new Promise(resolve => this.resolves[i] = resolve));
+		this.arr.forEach((v, i) => {
+			this.promises[i] = new Promise((resolve) => { this.resolves[i] = resolve; });
+		});
 		this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 		this.spy = sinon.fake((v, i) => this.promises[i]);
@@ -62,11 +64,12 @@ describe('forEachSeries()', function() {
 
 			this.resolves[3]();
 			return delay();
-		}).then(() => {
-			expectCalls(spy, arr, 5);
-			this.resolve();
-			return p;
-		});
+		})
+			.then(() => {
+				expectCalls(spy, arr, 5);
+				this.resolve();
+				return p;
+			});
 	});
 
 	it('promise resolves to undefined', function() {
@@ -86,8 +89,8 @@ describe('forEachSeries()', function() {
 		});
 	});
 
-	describe('with empty array', function() {
-		it('promise resolves to undefined', function() {
+	describe('with empty array', () => {
+		it('promise resolves to undefined', () => {
 			const p = P.forEachSeries([], () => {});
 			return expect(p).to.eventually.equal(undefined);
 		});
@@ -102,7 +105,7 @@ function expectCalls(spy, arr, count) {
 	expect(spy).to.have.callCount(count);
 
 	for (let i = 0; i < count; i++) {
-		const args = spy.getCall(i).args;
+		const {args} = spy.getCall(i);
 		expect(args.length).to.equal(3);
 		expect(args[0]).to.equal(arr[i]);
 		expect(args[1]).to.equal(i);

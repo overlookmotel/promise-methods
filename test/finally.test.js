@@ -20,8 +20,8 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('finally()', function() {
-	describe('if promise resolves', function() {
+describe('finally()', () => {
+	describe('if promise resolves', () => {
 		beforeEach(function() {
 			this.ret = {a: 1};
 			this.p = Promise.resolve(this.ret);
@@ -72,7 +72,7 @@ describe('finally()', function() {
 		});
 	});
 
-	describe('if promise rejects', function() {
+	describe('if promise rejects', () => {
 		beforeEach(function() {
 			this.err = new Error('e');
 			this.p = Promise.reject(this.err);

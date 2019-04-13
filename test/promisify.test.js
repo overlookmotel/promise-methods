@@ -20,7 +20,7 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('promisify()', function() {
+describe('promisify()', () => {
 	beforeEach(function() {
 		this.ret = {a: 1};
 		this.spy = sinon.fake((a, b, cb) => {
@@ -33,14 +33,14 @@ describe('promisify()', function() {
 		expect(this.fn).to.be.a('function');
 	});
 
-	describe('function', function() {
+	describe('function', () => {
 		it('returns a promise', function() {
 			const p = this.fn(null, null);
 			expect(p).to.be.instanceof(Promise);
 			return p;
 		});
 
-		describe('is called', function() {
+		describe('is called', () => {
 			beforeEach(function() {
 				this.args = [{b: 2}, {c: 3}];
 				this.ctx = [{d: 4}];
@@ -64,17 +64,17 @@ describe('promisify()', function() {
 			});
 		});
 
-		describe('calls callback with value', function() {
+		describe('calls callback with value', () => {
 			it('promise resolves to returned value', function() {
 				const p = this.fn(null, null);
 				return expect(p).to.eventually.equal(this.ret);
 			});
 		});
 
-		describe('calls callback with error', function() {
-			it('promise rejects with error', function() {
+		describe('calls callback with error', () => {
+			it('promise rejects with error', () => {
 				const err = new Error('e');
-				const fn = P.promisify(cb => {
+				const fn = P.promisify((cb) => {
 					cb(err);
 				});
 				const p = fn();
@@ -83,8 +83,8 @@ describe('promisify()', function() {
 			});
 		});
 
-		describe('throws error', function() {
-			it('promise rejects with error', function() {
+		describe('throws error', () => {
+			it('promise rejects with error', () => {
 				const err = new Error('e');
 				const fn = P.promisify(() => {
 					throw err;

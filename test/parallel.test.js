@@ -20,19 +20,21 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('parallel()', function() {
-	describe('with default concurrency', function() {
+describe('parallel()', () => {
+	describe('with default concurrency', () => {
 		beforeEach(function() {
 			this.rets = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}];
 			this.resolves = [];
-			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+			this.promises = this.rets.map(
+				(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 			this.spies = this.promises.map(promise => sinon.fake.returns(promise));
 			this.p = P.parallel(this.spies);
 		});
 
 		it('calls all functions sync', function() {
-			for (let spy of this.spies) {
+			for (const spy of this.spies) {
 				expect(spy).to.be.calledOnce;
 			}
 
@@ -58,13 +60,15 @@ describe('parallel()', function() {
 		});
 	});
 
-	describe('with set concurrency', function() {
+	describe('with set concurrency', () => {
 		beforeEach(function() {
 			this.concurrency = 2;
 
 			this.rets = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}];
 			this.resolves = [];
-			this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+			this.promises = this.rets.map(
+				(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+			);
 			this.resolve = () => this.resolves.forEach(resolve => resolve());
 			this.spies = this.promises.map(promise => sinon.fake.returns(promise));
 			this.p = P.parallel(this.spies, this.concurrency);
@@ -125,8 +129,8 @@ describe('parallel()', function() {
 		});
 	});
 
-	describe('with empty array', function() {
-		it('promise resolves to empty array', function() {
+	describe('with empty array', () => {
+		it('promise resolves to empty array', () => {
 			const p = P.parallel([]);
 			return expect(p).to.eventually.deep.equal([]);
 		});

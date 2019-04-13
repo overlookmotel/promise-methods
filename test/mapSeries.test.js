@@ -20,13 +20,15 @@ chai.use(sinonChai);
 
 // Tests
 
-describe('mapSeries()', function() {
+describe('mapSeries()', () => {
 	beforeEach(function() {
 		this.arr = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5}];
 
 		this.rets = this.arr.map(v => ({b: v.a + 10}));
 		this.resolves = [];
-		this.promises = this.rets.map((ret, i) => new Promise(resolve => this.resolves[i] = () => resolve(ret)));
+		this.promises = this.rets.map(
+			(ret, i) => new Promise((resolve) => { this.resolves[i] = () => resolve(ret); })
+		);
 		this.resolve = () => this.resolves.forEach(resolve => resolve());
 
 		this.spy = sinon.fake((v, i) => this.promises[i]);
@@ -62,16 +64,17 @@ describe('mapSeries()', function() {
 
 			this.resolves[3]();
 			return delay();
-		}).then(() => {
-			expectCalls(spy, arr, 5);
-			this.resolve();
-			return p;
-		});
+		})
+			.then(() => {
+				expectCalls(spy, arr, 5);
+				this.resolve();
+				return p;
+			});
 	});
 
 	it('promise resolves to iterator results', function() {
 		this.resolve();
-		return this.p.then(ret => {
+		return this.p.then((ret) => {
 			expectResults(ret, this.rets);
 		});
 	});
@@ -88,8 +91,8 @@ describe('mapSeries()', function() {
 		});
 	});
 
-	describe('with empty array', function() {
-		it('promise resolves to empty array', function() {
+	describe('with empty array', () => {
+		it('promise resolves to empty array', () => {
 			const p = P.mapSeries([], () => {});
 			return expect(p).to.eventually.deep.equal([]);
 		});
@@ -104,7 +107,7 @@ function expectCalls(spy, arr, count) {
 	expect(spy).to.have.callCount(count);
 
 	for (let i = 0; i < count; i++) {
-		const args = spy.getCall(i).args;
+		const {args} = spy.getCall(i);
 		expect(args.length).to.equal(3);
 		expect(args[0]).to.equal(arr[i]);
 		expect(args[1]).to.equal(i);

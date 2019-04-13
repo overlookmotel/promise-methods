@@ -17,8 +17,8 @@ chai.use(chaiAsPromised);
 
 // Tests
 
-describe('propsOwn()', function() {
-	it('resolves all promises', function() {
+describe('propsOwn()', () => {
+	it('resolves all promises', () => {
 		const rets = {
 			v1: {a: 1},
 			v2: {a: 2},
@@ -38,7 +38,7 @@ describe('propsOwn()', function() {
 
 		const p = P.propsOwn(obj);
 
-		return p.then(ret => {
+		return p.then((ret) => {
 			expect(ret).to.deep.equal(rets);
 			expect(ret.v1).to.equal(rets.v1);
 			expect(ret.v2).to.equal(rets.v2);
@@ -47,7 +47,7 @@ describe('propsOwn()', function() {
 		});
 	});
 
-	it('rejects if a promise rejects', function() {
+	it('rejects if a promise rejects', () => {
 		const err = new Error('e');
 		const p = P.propsOwn({
 			a: Promise.resolve(123),
@@ -56,8 +56,8 @@ describe('propsOwn()', function() {
 		return expect(p).to.be.rejectedWith(err);
 	});
 
-	describe('with empty object', function() {
-		it('promise resolves to empty object', function() {
+	describe('with empty object', () => {
+		it('promise resolves to empty object', () => {
 			const p = P.propsOwn({});
 			return expect(p).to.eventually.deep.equal({});
 		});
