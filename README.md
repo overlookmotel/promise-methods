@@ -25,6 +25,7 @@ The following methods are provided:
 
 * `is( obj )`
 * `tap( promise, handler )`
+* `tapCatch( promise, handler )`
 * `promisify( fn )`
 * `try( fn )`
 * `method( fn )`
@@ -92,6 +93,25 @@ P.tap( res => console.log(res) );
 ```
 
 If `handler()` returns a promise, it is awaited before the returned promise resolves.
+
+#### `tapCatch( promise, handler )`
+
+Tap a promise's rejection reason.
+
+The following are equivalent:
+
+```js
+promise.catch( (err) => {
+  console.log(err);
+  throw err;
+} );
+
+P.tapCatch( err => console.log(err) );
+```
+
+If `handler()` returns a promise, it is awaited before the returned promise resolves.
+
+If `handler()` throws an error or returns a rejected promise, that error is silently swallowed.
 
 ### Function methods
 
