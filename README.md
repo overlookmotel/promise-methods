@@ -24,6 +24,7 @@ Not optimized for performance at present, but well tested and it all works.
 The following methods are provided:
 
 * `is( obj )`
+* `tap( promise, handler )`
 * `promisify( fn )`
 * `try( fn )`
 * `method( fn )`
@@ -74,6 +75,23 @@ P.isPromise( {} ); // Returns `false`
 P.isPromise( () => {} ); // Returns `false`
 P.isPromise( 123 ); // Returns `false`
 ```
+
+#### `tap( promise, handler )`
+
+Tap a promise's resolution value.
+
+The following are equivalent:
+
+```js
+promise.then( (res) => {
+  console.log(res);
+  return res;
+} );
+
+P.tap( res => console.log(res) );
+```
+
+If `handler()` returns a promise, it is awaited before the returned promise resolves.
 
 ### Function methods
 
