@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.0
+
+Features:
+
+* `tap` method
+* `tapCatch` method
+
+Docs:
+
+* README typo
+
 ## 1.4.0
 
 Features:
