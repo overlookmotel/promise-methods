@@ -29,10 +29,10 @@ The following methods are provided:
 * `method( fn )`
 * `parallel( fns [, concurrency] )`
 * `series( fns )`
-* `all( arr [,options] )`
+* `all( arr [, options] )`
 * `allAwait( arr )`
-* `props( obj [,options] )`
-* `propsOwn( obj [,options] )`
+* `props( obj [, options] )`
+* `propsOwn( obj [, options] )`
 * `forEach( arr, fn [, options] )`
 * `forEachSeries( arr, fn )`
 * `map( arr, fn [, options] )`
